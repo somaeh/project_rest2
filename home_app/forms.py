@@ -1,38 +1,38 @@
 from typing import Any
 from django import forms
-from.models import User
+# from.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
-class UserCreationForm(forms.ModelForm):
+# class UserCreationForm(forms.ModelForm):
     
-    password1 = forms.CharField(label='password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='confirm password', widget=forms.PasswordInput)
+#     password1 = forms.CharField(label='password', widget=forms.PasswordInput)
+#     password2 = forms.CharField(label='confirm password', widget=forms.PasswordInput)
     
-    class Meta:
-        model = User
-        fields = ('email', 'phone_number', 'full_name')
+#     class Meta:
+#         model = User
+#         fields = ('email', 'phone_number', 'full_name')
         
-    def clean_password2(self):#اعتبار سنجی پسورد
-        cd = self.cleaned_data
-        if cd['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
-            raise ValidationError('passwords dont much')
-        return cd['password2']
+#     def clean_password2(self):#اعتبار سنجی پسورد
+#         cd = self.cleaned_data
+#         if cd['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
+#             raise ValidationError('passwords dont much')
+#         return cd['password2']
     
-    def save(self, commit=True):  #هش کرده پسورد
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password1'])
-        if commit:
-            return user.save()
-        return user
+#     def save(self, commit=True):  #هش کرده پسورد
+#         user = super().save(commit=False)
+#         user.set_password(self.cleaned_data['password1'])
+#         if commit:
+#             return user.save()
+#         return user
         
         
         
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField(help_text="you cant change password using<a href=\"../password/\">this form</a>.")
-    class Meta:
-        model = User
-        fields = ('email', 'phone_number', 'full_number', 'password', 'last_login')
+# class UserChangeForm(forms.ModelForm):
+#     password = ReadOnlyPasswordHashField(help_text="you cant change password using<a href=\"../password/\">this form</a>.")
+#     class Meta:
+#         model = User
+#         fields = ('email', 'phone_number', 'full_number', 'password', 'last_login')
             
         
