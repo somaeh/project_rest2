@@ -5,5 +5,7 @@ from .import views
 app_name = 'home_app'
 urlpatterns = [
     path('', views.Home.as_view(),  name="home" ),
-    path('question/', views.QuestionView.as_view()),
+    path('questions/', views.QuestionView.as_view()),
+    path('questions/<int:pk>/', views.QuestionView.as_view()),
+
 ]

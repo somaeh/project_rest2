@@ -8,7 +8,7 @@ class Personserislizer(serializers.Serializer):
     age = serializers.IntegerField()
     email = serializers.EmailField()
     
-class Questionserializer(serializers.ModelField):
+class Questionserializer(serializers.ModelSerializer):
     
     class Meta:
         model = Question
