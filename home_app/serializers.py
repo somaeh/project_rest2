@@ -9,10 +9,16 @@ class Personserislizer(serializers.Serializer):
     email = serializers.EmailField()
     
 class Questionserializer(serializers.ModelSerializer):
+    answers = serializers.SerializerMethodField()
     
     class Meta:
         model = Question
         fields = '__all__'
+        
+    def get_answers(self, obj):
+        result = obj.answers.all()
+        return Answerserializer(instance=result, many=True).data
+    
         
 class Answerserializer(serializers.ModelSerializer):
     class Meta:
