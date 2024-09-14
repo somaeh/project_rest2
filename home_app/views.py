@@ -69,6 +69,7 @@ class QuestionUpdateView(APIView):
         return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
+    
 class QuestionDeleteView(APIView):
      permission_classes =[IsOwnerorReadonly,]
      
