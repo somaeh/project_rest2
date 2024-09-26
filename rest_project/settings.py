@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'accounts_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -133,8 +135,40 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAutentication',
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+},
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSAS': [
+        'rest_framework.throttling.ScopedRateThrottle',
+        # 'rest_framework.throttling.AnonRateThrottle',
+        # 'rest_framework.throttling.UserRateThrottle',
+    ],
+    
+    'DEFAULT_THROTTLE_RATES': {
+        'questions': '5/minute'
+        # 'user' : '10/hour',
+        
+        
+    },
+    
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'shop rest',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
+
+
+# "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNjY3OTUxNCwiaWF0IjoxNzI2NTkzMTE0LCJqdGkiOiI1OTYyNDYzZWRkYmU0ZGMxYjA4YzhiY2U2MWNhMWJhNiIsInVzZXJfaWQiOjF9.7fTqhP4Uv8Iu7T7mQC78jgMAB1HX3SGZBVGwKpvbIms",
+# "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTkzNDE0LCJpYXQiOjE3MjY1OTMxMTQsImp0aSI6ImI2ZTBmMDU0MzFmNTRjNWRiYjg1OWI1NmM5NGQyODM1IiwidXNlcl9pZCI6MX0.V9MBePTDIGR5eu0kfM904Er208nITg8zogsVKUabuqc"
+    
 

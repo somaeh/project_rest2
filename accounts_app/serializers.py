@@ -36,3 +36,9 @@ class UserRegisterserializer(serializers.ModelSerializer):
     #     if data['password'] != data['password2']:
     #         raise serializers.ValidationError('password must match')
     #     return data
+    
+    
+class Userserializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'

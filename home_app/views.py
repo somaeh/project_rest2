@@ -9,6 +9,7 @@ from.serializers import Personserislizer, Questionserializer, Answerserializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import status
 from permisstions import IsOwnerorReadonly
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
 # @api_view(['GET'])
@@ -19,7 +20,7 @@ from permisstions import IsOwnerorReadonly
     
 class Home(APIView):
     # permission_classes = [IsAuthenticated,]
-    permission_classes = [IsAdminUser,]
+    permission_classes = [IsAuthenticated,]
     
     def get(self, request):
         
@@ -38,6 +39,8 @@ class Home(APIView):
     
     
 class QuestionListView(APIView):
+    throttle_scope = 'questions'  #هم برای کاربرهای آن انی موس و کتربرهایی که احراز هویت شدن اعمال میشه
+    # throttle_classes = [AnonRateThrottle, UserRateThrottle]
     def get(self, request):
         
         questions = Question.objects.all()
@@ -46,8 +49,13 @@ class QuestionListView(APIView):
     
       
 class QuestionCreateView(APIView):
+    """ 
+        create a new question
+    """
+    
     
     permission_classes = [IsAuthenticated,]
+    serializer_class = Questionserializer
     def post(self, request):
         srz_data = Questionserializer(data=request.data)
         if srz_data.is_valid():
